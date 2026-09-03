@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#050507">
+  <title id="site-browser-title">ফুলবাড়ি আমিনিয়া হাই মাদ্রাসা (উঃ মাঃ)</title>
+
+  <!-- Modern Fonts & FontAwesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <canvas id="bubble-canvas"></canvas>
+  <div class="cyber-grid-overlay"></div>
+  <div class="glow-light light-top"></div>
+  <div class="glow-light light-bottom"></div>
+
+  <!-- Announcement Bar -->
+  <div class="agency-ticker">
+    <div class="ticker-pill"><i class="fa-solid fa-bolt"></i> লাইভ আপডেট</div>
+    <div class="ticker-marquee">
+      <marquee id="ticker-text" behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();"></marquee>
+    </div>
+  </div>
+
+  <!-- Header Navigation -->
+  <header>
+    <div class="nav-container">
+      <div class="brand">
+        <div class="logo-symbol">
+          <i class="fa-solid fa-mosque"></i>
+        </div>
+        <div class="logo-text">
+          <span class="name" id="nav-brand-title">ফুলবাড়ি আমিনিয়া</span>
+          <span class="badge" id="nav-brand-subtitle">হাই মাদ্রাসা (উঃ মাঃ)</span>
+        </div>
+      </div>
+
+      <nav class="nav-links">
+        <button class="nav-btn active" data-page="home">নীড়পাতা</button>
+        <button class="nav-btn" data-page="poems">কবিতা ও না'ত</button>
+        <button class="nav-btn" data-page="literature">সাহিত্য কর্নার</button>
+        <button class="nav-btn" data-page="grammar">ব্যাকরণ হাব</button>
+        <button class="nav-btn" data-page="about">পরিচিতি</button>
+        <button class="nav-btn cta-btn" data-page="contact">যোগাযোগ <i class="fa-solid fa-arrow-right"></i></button>
+        <button id="admin-toggle-btn" class="nav-btn admin-badge-btn" title="সম্পূর্ণ কন্ট্রোল প্যানেল"><i class="fa-solid fa-sliders"></i> অ্যাডমিন CMS</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Dynamic Content Stage -->
+  <main id="app-content" class="content-stage"></main>
+
+  <!-- Minimal Dark Agency Footer -->
+  <footer>
+    <div class="footer-wrap">
+      <p id="footer-text"></p>
+    </div>
+  </footer>
+
+  <!-- Complete Site Management CMS Modal -->
+  <div id="admin-panel" class="admin-modal">
+    <div class="admin-content">
+      <div class="admin-header">
+        <div class="admin-title-wrap">
+          <i class="fa-solid fa-shield-halved"></i>
+          <h3>ফুল ওয়েবসাইট কন্ট্রোল ড্যাশবোর্ড</h3>
+        </div>
+        <button id="admin-close-btn" class="admin-close">&times;</button>
+      </div>
+
+      <!-- Admin Tabs Navigation -->
+      <div class="admin-nav-tabs">
+        <button class="adm-tab-btn active" data-tab="tab-general">সাধারণ ও নোটিশ</button>
+        <button class="adm-tab-btn" data-tab="tab-home">হোম ও পরিসংখ্যান</button>
+        <button class="adm-tab-btn" data-tab="tab-poems">কবিতা ও না'ত</button>
+        <button class="adm-tab-btn" data-tab="tab-literature">সাহিত্য</button>
+        <button class="adm-tab-btn" data-tab="tab-grammar">ব্যাকরণ</button>
+        <button class="adm-tab-btn" data-tab="tab-about">পরিচিতি ও ছবি</button>
+      </div>
+
+      <div class="admin-body">
+        <!-- 1. সাধারণ তথ্য ট্যাব -->
+        <div class="adm-tab-pane active" id="tab-general">
+          <div class="admin-field">
+            <label>প্রতিষ্ঠানের নাম (ব্র্যান্ডিং)</label>
+            <input type="text" id="adm-brand-name" class="agency-input" />
+          </div>
+          <div class="admin-field">
+            <label>প্রতিষ্ঠানের পদবী/ধরন (ট্যাগলাইন)</label>
+            <input type="text" id="adm-brand-sub" class="agency-input" />
+          </div>
+          <div class="admin-field">
+            <label>লাইভ নোটিশ ও স্ক্রলিং আপডেট</label>
+            <textarea id="adm-ticker" class="agency-input" rows="2"></textarea>
+          </div>
+          <div class="admin-field">
+            <label>ফুটার টেক্সট</label>
+            <input type="text" id="adm-footer" class="agency-input" />
+          </div>
+        </div>
+
+        <!-- 2. হোম ও পরিসংখ্যান ট্যাব -->
+        <div class="adm-tab-pane" id="tab-home">
+          <div class="admin-field">
+            <label>হিরো সেকশন মূল স্লোগান</label>
+            <input type="text" id="adm-hero-badge" class="agency-input" />
+          </div>
+          <div class="admin-field">
+            <label>হিরো টাইপিং টেক্সট তালিকা (কমা দিয়ে আলাদা করুন)</label>
+            <input type="text" id="adm-hero-phrases" class="agency-input" />
+          </div>
+          <div class="admin-field">
+            <label>হিরো বিবরণ</label>
+            <textarea id="adm-hero-sub" class="agency-input" rows="2"></textarea>
+          </div>
+          <div class="admin-row">
+            <div class="admin-field">
+              <label>পাশের হার (%)</label>
+              <input type="number" id="adm-stat-pass" class="agency-input" />
+            </div>
+            <div class="admin-field">
+              <label>মোট শিক্ষার্থী</label>
+              <input type="number" id="adm-stat-students" class="agency-input" />
+            </div>
+            <div class="admin-field">
+              <label>অভিজ্ঞ শিক্ষক</label>
+              <input type="number" id="adm-stat-teachers" class="agency-input" />
+            </div>
+          </div>
+          <div class="admin-list-header">
+            <h4>হোমপেজের ফিচার কার্ডসমূহ</h4>
+            <button type="button" class="adm-mini-btn" id="add-home-card-btn"><i class="fa-solid fa-plus"></i> নতুন কার্ড যোগ করুন</button>
+          </div>
+          <div id="adm-home-cards-container" class="adm-items-stack"></div>
+        </div>
+
+        <!-- 3. কবিতা ও না'ত ট্যাব -->
+        <div class="adm-tab-pane" id="tab-poems">
+          <div class="admin-list-header">
+            <h4>কবিতা ও না'ত তালিকা</h4>
+            <button type="button" class="adm-mini-btn" id="add-poem-btn"><i class="fa-solid fa-plus"></i> নতুন কবিতা যোগ করুন</button>
+          </div>
+          <div id="adm-poems-container" class="adm-items-stack"></div>
+        </div>
+
+        <!-- 4. সাহিত্য ট্যাব -->
+        <div class="adm-tab-pane" id="tab-literature">
+          <div class="admin-list-header">
+            <h4>সাহিত্য প্রবন্ধ ও বিশ্লেষণ</h4>
+            <button type="button" class="adm-mini-btn" id="add-lit-btn"><i class="fa-solid fa-plus"></i> নতুন প্রবন্ধ যোগ করুন</button>
+          </div>
+          <div id="adm-literature-container" class="adm-items-stack"></div>
+        </div>
+
+        <!-- 5. ব্যাকরণ ট্যাব -->
+        <div class="adm-tab-pane" id="tab-grammar">
+          <div class="admin-list-header">
+            <h4>ব্যাকরণ পাঠ তালিকা (Accordion)</h4>
+            <button type="button" class="adm-mini-btn" id="add-grammar-btn"><i class="fa-solid fa-plus"></i> নতুন ব্যাকরণ পাঠ যোগ করুন</button>
+          </div>
+          <div id="adm-grammar-container" class="adm-items-stack"></div>
+        </div>
+
+        <!-- 6. পরিচিতি ও ছবি ট্যাব -->
+        <div class="adm-tab-pane" id="tab-about">
+          <div class="admin-field">
+            <label>পরিচিতি মূল শিরোনাম</label>
+            <input type="text" id="adm-about-title" class="agency-input" />
+          </div>
+          <div class="admin-field">
+            <label>পরিচিতি মূল বক্তব্য ও ইতিহাস</label>
+            <textarea id="adm-about-desc" class="agency-input" rows="5"></textarea>
+          </div>
+          <div class="admin-field">
+            <label>ক্যাম্পাস / ব্যানারের ছবি আপলোড করুন</label>
+            <input type="file" id="adm-about-img" class="agency-input" accept="image/*" />
+            <div id="adm-img-preview" class="image-preview-slot"></div>
+            <button type="button" id="remove-img-btn" class="adm-delete-btn" style="margin-top: 0.5rem; display: none;">ছবিটি রিমুভ করুন</button>
+          </div>
+        </div>
+
+        <div class="adm-action-bar">
+          <button id="adm-save-btn" class="cta-btn" style="flex: 1; justify-content: center; padding: 0.85rem;"><i class="fa-solid fa-cloud-arrow-up"></i> সংরক্ষণ ও লাইভ আপডেট করুন</button>
+          <button id="adm-reset-btn" class="adm-reset-btn"><i class="fa-solid fa-rotate-left"></i> ডিফল্ট রিসেট</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
